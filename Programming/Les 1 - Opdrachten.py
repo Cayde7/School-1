@@ -50,5 +50,5 @@ print("\n[PROG] 1_4. Boolean Expressions (formatief)")
 #Schrijf booleaanse expressies die van de variabelen evalueren
 print("Antwoord 1:", 6.75 > a < b)
 print("Antwoord 2:", len(mijnNaam) == len(voornaam+tussenvoegsel+achternaam))
-print("Antwoord 3:", len(str(5*c)) == len(mijnNaam))
+print("Antwoord 3:", len(str(5*c)) <= len(mijnNaam))
 print("Antwoord 4:", tussenvoegsel in achternaam)
