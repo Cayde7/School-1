@@ -1,0 +1,5 @@
+Stap 1. Start
+Stap 2. Voer het uurloon en het aantal gewerkte uren in
+Stap 3. Vermenigvuldig het uurloon met het aantal uren
+Stap 4. Output loon
+Stap 5. Stop
