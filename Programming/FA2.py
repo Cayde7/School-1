@@ -30,14 +30,15 @@ def ritprijs(leeftijd, weekendrit, afstandKM):
             return stprijs                   #geen weekend en geen korting leeftijd, betaald standaardprijs
                                              #is bij de functie standaardprijs() al een float
 
-
 def development_code():
+    print("\nDevelopment_code() staat aan\n")
     # Plaats dev code hier.
 
 
 def module_runner():
     #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()  # Comment deze regel om de HU-tests uit te schakelen
+
 
 
 """
@@ -124,3 +125,10 @@ def __run_tests():
 
 if __name__ == '__main__':
     module_runner()
+
+print("\n======= User program =======")
+leeftijd = int(input("Wat is uw leeftijd?\n"))
+weekend = bool(input("Reist u in het weekend?\n"))
+afstandKM = float(input("Hoeveel KM reist U?\n"))
+ritprijs= ritprijs(leeftijd, weekend, afstandKM)
+print(f"Uw rit kost €{ritprijs:.2f}")
