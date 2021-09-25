@@ -4,64 +4,18 @@
 import collections
 import traceback
 
-"""
-Programming
-Final assignment 2: NS-functies
-(c) 2021 Hogeschool Utrecht,
-Tijmen Muller en 
-Bart van Eijkelenburg (bart.vaneijkelenburg@hu.nl)
-
-
-Opdracht:
-Werk onderstaande functies uit.
-Voeg commentaar toe om je code toe te lichten.
-Lever je werk in op Canvas als alle tests slagen.
-"""
-# met of zonder "raamwerk"?
-
 def standaardprijs(afstandKM):
-    """
-    ✅ Bepaal de prijs van een treinrit. Iedere treinrit kost 80 cent per kilometer,
-    ✅ maar als de rit langer is dan 50 kilometer betaal je een vast bedrag van €15,-
-    plus 60 cent per kilometer.
 
-    ✅ Ga bij invoer van negatieve afstanden uit van een afstand van
-    0 kilometer (prijs is dan dus 0 Euro).
+    if 0 < afstandKM <= 50:                 # afstand is niet kleiner dan 0 en onder 50
+        return afstandKM * .8               # return afstand maal 80 cent
+    elif afstandKM > 50:                    # afstand is meer dan 50
+        return 15 + afstandKM * .6          # return vast bedrag plus afstand maal 60 cent
+    return 0.0                              # afstand is kleiner dan 0 dus return 0 euro, hier had ik eerst een else return maar
+                                            # dat bleek dubbel op te zijn. 0.0 is ingevoerd omdat de output een float moet zijn
 
-    Args:
-        afstandKM (int): De reisafstand in kilometers.
-    Returns:
-        float: De berekende standaardprijs.
-    """
-    if 0 < afstandKM <= 50:         # afstand is niet kleiner dan 0 en onder 50
-        return afstandKM * .8       # return afstand maal 80 cent
-    elif afstandKM > 50:            # afstand is meer dan 50
-        return 15 + afstandKM * .6  # return vast bedrag plus afstand maal 60 cent
-    return 0.0                      # afstand is kleiner dan 0 dus return 0 euro, hier had ik eerst een else return maar
-                                    # dat bleek dubbel op te zijn. 0.0 is ingevoerd omdat de output een float moet zijn
-# note: leesbare code heeft niet zo veel comments nodig, voor de opdracht doe ik dat wel
 
 def ritprijs(leeftijd, weekendrit, afstandKM):
-    """
-    Het eerste wat deze functie moet doen, is het aanroepen van
-    functie standaardprijs, waarbij de afstand in kilometers doorgegeven
-    moet worden om de standaardprijs voor de rit op te vragen.
 
-    Aan de hand van de standaardprijs kan de actuele ritprijs worden berekend.
-    De regels zijn als volgt:
-
-     * Op werkdagen reizen kinderen (onder 12 jaar) en ouderen (65 en ouder) met 30% korting.
-     * In het weekend reist deze groep met 35% korting.
-     * Overige leeftijdsgroepen betalen de gewone prijs, behalve in het weekend. Dan reist
-       deze leeftijdsgroep met 40% korting.
-
-    Args:
-        leeftijd (int): De leeftijd van de reiziger in gehele jaren.
-        weekendrit (bool): True als het een rit in het weekend betreft, anders False.
-        afstandKM (int): De reisafstand in kilometers.
-    Returns:
-        float: De berekende ritprijs.
-    """
     stprijs = standaardprijs(afstandKM)      #verminderd function calls, stprijs = standaardprijs
 
     if weekendrit:                           #if True
@@ -78,12 +32,11 @@ def ritprijs(leeftijd, weekendrit, afstandKM):
 
 
 def development_code():
-    # Plaats hieronder code om je functies tussentijds te testen. Bijv:
-    print("development printout:", standaardprijs(30))
+    # Plaats dev code hier.
 
 
 def module_runner():
-    development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()  # Comment deze regel om de HU-tests uit te schakelen
 
 
@@ -91,7 +44,8 @@ def module_runner():
 ==========================[ HU TESTRAAMWERK ]================================
 Hieronder staan de tests voor je code -- daaraan mag je niets wijzigen!
 """
-
+# Uh ik heb er toch de twee extra test cases toegevoegd.
+# 2 missende cases waren: case(65, True, -51, 0.0), case(65, False, -51, 0.0)
 
 def __my_assert_args(function, args, expected_output, check_type=False):
     """
