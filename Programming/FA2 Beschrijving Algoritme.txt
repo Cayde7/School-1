@@ -1,9 +1,20 @@
 Stap 1. Start
-Stap 2. 
-Stap 3. 
-Stap 4. 
-Stap 5. 
-Stap 6. 
-Stap 7. 
-Stap 8. 
-Stop 9. Stop
+
+Stap 2. Voer je leeftijd, of de rit in het weekend is en de afstand in KM in.
+
+Stap 3. Bereken de standaardprijs
+Stap 3a.	Als de afstand groter is dan 50km, vermenigvuldig de afstand maal 60 cent plus 15 euro.
+Stap 3b.	Als de afstand groter is dan 0 euro maar kleiner of gelijk aan 50km, vermenigvuldig de afstand maal 80 cent. 
+Stap 3c.	Als de afstand kleiner of gelijk is aan 0 is de output prijs 0 euro. 
+
+Stap 4. Return de standaardprijs
+
+Stap 5. Bereken de ritprijs
+Stap 5a.	Als er in het weekend wordt gereist en de leeftijd is kleiner dan 12 en groter of gelijk aan 65, vermenigvuldig de standaardprijs maal 65%.
+Stap 5b.	Als er in het weekend wordt gereist en de leeftijd is niet kleiner dan 12 en niet groter of gelijk aan 65, vermenigvuldig de standaardprijs maal 60%.
+Stap 5c.	Als er in het niet weekend wordt gereist en de leeftijd is kleiner dan 12 en groter of gelijk aan 65, vermenigvuldig de standaardprijs maal 70%.
+Stap 5d.	Als er in het niet weekend wordt gereist en de leeftijd is niet kleiner dan 12 en niet groter of gelijk aan 65, vermenigvuldig de standaardprijs niet.
+
+Stap 6. Return de ritprijs
+
+Stop 7. Stop
