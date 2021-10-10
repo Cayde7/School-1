@@ -22,36 +22,19 @@ Lever je werk in op Canvas als alle tests slagen.
 
 open('FA3_kluizen.txt','w')
 
+
 def aantal_kluizen_vrij():
-    infile = open('FA3_kluizen.txt') # open the file
-    infile = infile.read().strip().split('\n') # Read file, strip trailing whitespaces, split line ends
-    # print(infile) # should return a list of lines
-    return 12-len(infile)
+    infile = open('FA3_kluizen.txt').read().strip().split('\n') # Open, read file, strip trailing whitespaces, split line ends
+    return 12-len(infile)  # Return unused locker amount
 
 
 def nieuwe_kluis():
-    """
-    Indien er nog kluizen vrij zijn, moet de gebruiker de mogelijkheid krijgen
-    om een kluiscode in te voeren. Deze kluiscode moet uit minimaal 4 tekens bestaan,
-    en de puntkomma (';') mag er niet in voorkomen.
-
-    Als de puntkomma voorkomt in de kluiscode, is de returnwaarde van deze functie -1.
-    Als er geen vrije kluizen meer zijn, is de returnwaarde van deze functie -2.
-
-    Als er nog vrij kluizen zijn, en de kluiscode is geldig, dan koppelt deze functie
-    de kluiscode aan een nog beschikbare kluis, en schrijft deze combinatie weg naar
-    een tekstbestand. De returnwaarde van de functie is dan gelijk aan het toegekende
-    kluisnummer.
-
-    Returns:
-        int: het toegekende kluisnummer of foutcode -1 of -2
-    """
     inhoud = open('FA3_kluizen.txt')  # wat is het verschil met ", 'r'" ???
     kluisjes = []
     for lines in inhoud:
         if ";" in lines:
-            kluisNummerEind = lines.find(';')
-            kluisjes.append(lines[:kluisNummerEind])
+            kluis_nummer_eind = lines.find(';')
+            kluisjes.append(lines[:kluis_nummer_eind])
             kluisjes.sort()
     # inhoud.close() # niet nodig zonder ", 'r'"
     # print("Lijst met gebruikte kluisjes:" + str(kluisjes)) # debug
@@ -73,14 +56,6 @@ def nieuwe_kluis():
 
 
 def kluis_openen():
-    """
-    Laat de gebruiker een kluisnummer invoeren, en direct daarna de bijbehorende
-    kluiscode. Indien deze combinatie voorkomt in het tekstbestand met de kluizen
-    die in gebruik zijn, is het resultaat van de functie True, anders False.
-
-    Returns:
-        bool: True als de ingevoerde combinatie correct is, anders False
-    """
     kluisnummer = input("Wat is uw kluisnummer?\n")
     kluiscode = input("Wat is uw kluiscode?\n")
     kluisformated = f"{kluisnummer};{kluiscode}"
@@ -108,13 +83,13 @@ def kluis_teruggeven():
 
 
 def development_code():
+    # Breid deze code uit om het keuzemenu te realiseren:
     running = True
     while running:
-        # Breid deze code uit om het keuzemenu te realiseren:
         print("1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
               "2: Ik wil een nieuwe kluis\n"
               "3: Ik wil even iets uit mijn kluis halen\n"
-              "4: Ik geef mijn kluis terug")
+              "Nog niet geïmplementeerd, optionele keuze 4: Ik geef mijn kluis terug")
         try:
             keuze = int(input())
             if keuze == 1:
