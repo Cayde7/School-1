@@ -20,6 +20,7 @@ Voeg commentaar toe om je code toe te lichten.
 Lever je werk in op Canvas als alle tests slagen.
 """
 
+open('FA3_kluizen.txt','w')
 
 def aantal_kluizen_vrij():
     infile = open('FA3_kluizen.txt') # open the file
@@ -45,13 +46,30 @@ def nieuwe_kluis():
     Returns:
         int: het toegekende kluisnummer of foutcode -1 of -2
     """
-    inhoud = open('FA3_kluizen.txt').read()
-    print(inhoud)
-    if ';' in kluiscode:
-        return -1
-    if aantal_kluizen_vrij() <= 0:
-        return -2
-    return 2
+    inhoud = open('FA3_kluizen.txt')  # wat is het verschil met ", 'r'" ???
+    kluisjes = []
+    for lines in inhoud:
+        if ";" in lines:
+            kluisNummerEind = lines.find(';')
+            kluisjes.append(lines[:kluisNummerEind])
+            kluisjes.sort()
+    # inhoud.close() # niet nodig zonder ", 'r'"
+    # print("Lijst met gebruikte kluisjes:" + str(kluisjes)) # debug
+    i = 1
+    while i <= 12:
+        if str(i) not in kluisjes:
+            # print(i) # debug
+            print(f"Kluisje {i} is beschikbaar.")
+            code = input("Stel kluiscode in... (Minimaal 4 tekens en geen ; )")
+            if ';' in code or len(code) < 4:
+                print("\n!!! ERROR !!!\n  Code was te kort of bevat ;\n")
+                return -1
+            open('FA3_kluizen.txt', 'a').write(f"{i};{code}")
+            return i
+        else:
+            i += 1
+    print("\n!!! ERROR !!!\n  Alle kluisjes zijn bezet!\n")
+    return -2
 
 
 def kluis_openen():
@@ -63,7 +81,14 @@ def kluis_openen():
     Returns:
         bool: True als de ingevoerde combinatie correct is, anders False
     """
-    return
+    kluisnummer = input("Wat is uw kluisnummer?\n")
+    kluiscode = input("Wat is uw kluiscode?\n")
+    kluisformated = f"{kluisnummer};{kluiscode}"
+    inhoud = open('FA3_kluizen.txt').read()
+    if kluisformated in inhoud:
+        return True
+    else:
+        return False
 
 
 def kluis_teruggeven():
@@ -83,27 +108,32 @@ def kluis_teruggeven():
 
 
 def development_code():
-    # Breid deze code uit om het keuzemenu te realiseren:
-    print("1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
-          "2: Ik wil een nieuwe kluis\n"
-          "3: Ik wil even iets uit mijn kluis halen\n"
-          "4: Ik geef mijn kluis terug")
-    try:
-        keuze = int(input())
-    except:
-        print("\n!!! ERROR !!!\n  Input was geen Integer\n")
-    if keuze == 1:
-        aantal_kluizen_vrij()
-    elif keuze == 2:
-        nieuwe_kluis()
-    elif keuze == 3:
-        kluis_openen()
-    elif keuze == 4:
-        kluis_teruggeven()
+    running = True
+    while running:
+        # Breid deze code uit om het keuzemenu te realiseren:
+        print("1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
+              "2: Ik wil een nieuwe kluis\n"
+              "3: Ik wil even iets uit mijn kluis halen\n"
+              "4: Ik geef mijn kluis terug")
+        try:
+            keuze = int(input())
+            if keuze == 1:
+                aantal_kluizen_beschikbaar = aantal_kluizen_vrij()
+                print(f"    Er zijn {aantal_kluizen_beschikbaar} kluizen beschikbaar.\n")
+            elif keuze == 2:
+                nieuwe_kluis()
+            elif keuze == 3:
+                kluis_openen()
+            elif keuze == 4:
+                kluis_teruggeven()
+            elif keuze == 5:
+                running = False
+        except ValueError:
+            print("\n!!! ERROR !!!\n  Input was geen Integer\n")
 
 
 def module_runner():
-    development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
