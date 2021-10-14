@@ -20,53 +20,75 @@ Voeg commentaar toe om je code toe te lichten.
 Lever je werk in op Canvas als alle tests slagen.
 """
 
-open('FA3_kluizen.txt','w')
+# Some configuration stuff
+inputFile = "fa_testkluizen.txt"
+lockerMax = 12
+debug = True
+testing = True
+
+# FileNotFoundError prevention
+try:  # Try opening the file
+    open(inputFile, 'r').close()
+except FileNotFoundError:  # If there's no file, create it
+    print(f"\n\033[91m\033[1m  W A R N I N G   \033[0m {inputFile} was not found! New file of same name created...\n")
+    open(inputFile, 'w').close()
 
 
 def aantal_kluizen_vrij():
-    kluizenBestand = open('FA3_kluizen.txt', "r")# Open, read file, strip trailing whitespaces, split line ends
-    kluisjesInGebruik = kluizenBestand.readlines() # oude code: infile.read().strip('').split('\n')
-    kluizenBestand.close()
-    return 12-len(kluisjesInGebruik)  # Return unused locker amount
+    lockerFile = open(inputFile, "r")
+    lockersInUse = lockerFile.readlines()
+    lockerFile.close() # Open file, save info, close file.
+    return 12-len(lockersInUse)  # Return unused locker amount
+
+
+"""    
+    # Alternative code:
+    return 12-len(open(inputFile, "r").readlines()))
+    # Old code:
+    kluisjesInGebruik = kluisjesInGebruik.read().strip('').split('\n') # Open, read file, strip trailing whitespaces, split line ends
+    print(kluisjesInGebruik) # debug code
+    return 12 - len(kluisjesInGebruik)
+    # Must use open and close according to the 
+"""
 
 
 def nieuwe_kluis():
-    kluizenBestand = open('FA3_kluizen.txt')  # wat is het verschil met ", 'r'" ???
-    kluisjes = []
-    for lines in kluizenBestand:
+    lockerFile = open(inputFile)
+    lockers = []
+    for lines in lockerFile:
         if ";" in lines:
-            kluis_nummer_eind = lines.find(';')
-            kluisjes.append(lines[:kluis_nummer_eind])
-            kluisjes.sort()
-    kluizenBestand.close()
-    # inhoud.close() # niet nodig zonder ", 'r'"
-    # print("Lijst met gebruikte kluisjes:" + str(kluisjes)) # debug
-    i = 1
-    while i <= 12:
-        if str(i) not in kluisjes:
+            lockerNumberEnd = lines.find(';')
+            lockers.append(lines[:lockerNumberEnd])
+            # kluisjes.sort()  # Might be fun to do when I've got some time left.
+    lockerFile.close()
+    i = 1  # Counting Integer
+    while i <= lockerMax:
+        if str(i) not in lockers:
             # print(i) # debug
-            print(f"Kluisje {i} is beschikbaar.")
-            code = input("Stel kluiscode in... (Minimaal 4 tekens en geen ; )")
+            print(f"Kluisje {i} is beschikbaar. ")
+            code = input("Stel kluiscode in... (Minimaal 4 tekens en geen ; ) ")
             if ';' in code or len(code) < 4:
-                print("!!! ERROR !!!  Code was te kort of bevat ;")
+                print("ERROR  Code was te kort of bevat ; ")
                 return -1
-            open('FA3_kluizen.txt', 'a').write(f"{i};{code}'n")
+            open('fa_testkluizen.txt', 'a').write(f"{i};{code}\n")
             return i
         else:
             i += 1
-    print("!!! ERROR !!!  Alle kluisjes zijn bezet!")
+    print("ERROR  Alle kluisjes zijn bezet!")
     return -2
 
 
 def kluis_openen():
-    kluisnummer = input("Wat is uw kluisnummer?\n")
-    kluiscode = input("Wat is uw kluiscode?\n")
-    kluisformated = f"{kluisnummer};{kluiscode}"
-    kluizenBestand = open('FA3_kluizen.txt')
-    kluizenInhoud = kluizenBestand.read()
-    if kluisformated in kluizenInhoud:
+    lockerNumber = input("Wat is uw kluisnummer? ")
+    lockerCode = input("Wat is uw kluiscode?" )
+    lockerFormated = f"{lockerNumber};{lockerCode}"
+    lockerFile = open(inputFile)
+    lockerText = lockerFile.read()
+    if lockerFormated in lockerText:
+        print(f"Kluis {lockerNumber} is nu open.")
         return True
     else:
+        print("Nummer of code is fout.m")
         return False
 
 
@@ -83,21 +105,29 @@ def kluis_teruggeven():
     Returns:
         bool: True als er een kluiscombinatie verwijderd werd, anders False
     """
+
+    # Optional, I'll do when I have the time and energy.
+    input("\n\n\n   It said it's not implemented, go back!\n"
+          "   Press ENTER to continue...\n\n\n")
     return
 
 
 def development_code():
-    # Breid deze code uit om het keuzemenu te realiseren:
+    print(f"\033[94m=== Debug value's ===\n"
+          f"InputFile = {inputFile} , LockerMax = {lockerMax}\n"
+          f"Debug = {debug} , Testing = {testing}\033[0m")
     while True:
-        print("1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
+        print("\n"
+              "1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
               "2: Ik wil een nieuwe kluis\n"
               "3: Ik wil even iets uit mijn kluis halen\n"
-              "Nog niet geïmplementeerd, optionele keuze 4: Ik geef mijn kluis terug")
+              "# 4: Ik geef mijn kluis terug\n"
+              "5: Ik wil stoppen")
         try:
             keuze = int(input())
             if keuze == 1:
                 aantal_kluizen_beschikbaar = aantal_kluizen_vrij()
-                print(f"    Er zijn {aantal_kluizen_beschikbaar} kluizen beschikbaar.\n")
+                print(f"Er zijn {aantal_kluizen_beschikbaar} kluizen beschikbaar.")
             elif keuze == 2:
                 nieuwe_kluis()
             elif keuze == 3:
@@ -105,14 +135,17 @@ def development_code():
             elif keuze == 4:
                 kluis_teruggeven()
             elif keuze == 5:
-                running = False
+                print("Exiting debug menu...")
+                break
         except ValueError:
             print("!!! ERROR !!!  Input was geen Integer")
 
 
 def module_runner():
-    #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
-    __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
+    if debug:
+        development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    if testing:
+        __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
 """
