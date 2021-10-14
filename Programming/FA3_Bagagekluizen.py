@@ -24,18 +24,21 @@ open('FA3_kluizen.txt','w')
 
 
 def aantal_kluizen_vrij():
-    infile = open('FA3_kluizen.txt').read().strip().split('\n') # Open, read file, strip trailing whitespaces, split line ends
-    return 12-len(infile)  # Return unused locker amount
+    kluizenBestand = open('FA3_kluizen.txt', "r")# Open, read file, strip trailing whitespaces, split line ends
+    kluisjesInGebruik = kluizenBestand.readlines() # oude code: infile.read().strip('').split('\n')
+    kluizenBestand.close()
+    return 12-len(kluisjesInGebruik)  # Return unused locker amount
 
 
 def nieuwe_kluis():
-    inhoud = open('FA3_kluizen.txt')  # wat is het verschil met ", 'r'" ???
+    kluizenBestand = open('FA3_kluizen.txt')  # wat is het verschil met ", 'r'" ???
     kluisjes = []
-    for lines in inhoud:
+    for lines in kluizenBestand:
         if ";" in lines:
             kluis_nummer_eind = lines.find(';')
             kluisjes.append(lines[:kluis_nummer_eind])
             kluisjes.sort()
+    kluizenBestand.close()
     # inhoud.close() # niet nodig zonder ", 'r'"
     # print("Lijst met gebruikte kluisjes:" + str(kluisjes)) # debug
     i = 1
@@ -45,13 +48,13 @@ def nieuwe_kluis():
             print(f"Kluisje {i} is beschikbaar.")
             code = input("Stel kluiscode in... (Minimaal 4 tekens en geen ; )")
             if ';' in code or len(code) < 4:
-                print("\n!!! ERROR !!!\n  Code was te kort of bevat ;\n")
+                print("!!! ERROR !!!  Code was te kort of bevat ;")
                 return -1
-            open('FA3_kluizen.txt', 'a').write(f"{i};{code}")
+            open('FA3_kluizen.txt', 'a').write(f"{i};{code}'n")
             return i
         else:
             i += 1
-    print("\n!!! ERROR !!!\n  Alle kluisjes zijn bezet!\n")
+    print("!!! ERROR !!!  Alle kluisjes zijn bezet!")
     return -2
 
 
@@ -59,8 +62,9 @@ def kluis_openen():
     kluisnummer = input("Wat is uw kluisnummer?\n")
     kluiscode = input("Wat is uw kluiscode?\n")
     kluisformated = f"{kluisnummer};{kluiscode}"
-    inhoud = open('FA3_kluizen.txt').read()
-    if kluisformated in inhoud:
+    kluizenBestand = open('FA3_kluizen.txt')
+    kluizenInhoud = kluizenBestand.read()
+    if kluisformated in kluizenInhoud:
         return True
     else:
         return False
@@ -84,8 +88,7 @@ def kluis_teruggeven():
 
 def development_code():
     # Breid deze code uit om het keuzemenu te realiseren:
-    running = True
-    while running:
+    while True:
         print("1: Ik wil weten hoeveel kluizen nog vrij zijn\n"
               "2: Ik wil een nieuwe kluis\n"
               "3: Ik wil even iets uit mijn kluis halen\n"
@@ -104,11 +107,11 @@ def development_code():
             elif keuze == 5:
                 running = False
         except ValueError:
-            print("\n!!! ERROR !!!\n  Input was geen Integer\n")
+            print("!!! ERROR !!!  Input was geen Integer")
 
 
 def module_runner():
-    # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
