@@ -22,7 +22,7 @@ Lever je werk in op Canvas als alle tests slagen.
 
 # Some configuration stuff
 inputFile = "fa_testkluizen.txt"
-lockerMax = 12
+lockerMax = 14
 debug = True
 testing = True
 
@@ -35,10 +35,9 @@ except FileNotFoundError:  # If there's no file, create it
 
 
 def aantal_kluizen_vrij():
-    lockerFile = open(inputFile, "r")
-    lockersInUse = lockerFile.readlines()
-    lockerFile.close() # Open file, save info, close file.
-    return 12-len(lockersInUse)  # Return unused locker amount
+    with open(inputFile, "r") as lockerFile:
+        lockersInUse = lockerFile.readlines()
+    return lockerMax-len(lockersInUse)  # Return unused locker amount
 
 
 """    
@@ -70,7 +69,8 @@ def nieuwe_kluis():
             if ';' in code or len(code) < 4:
                 print("ERROR  Code was te kort of bevat ; ")
                 return -1
-            open('fa_testkluizen.txt', 'a').write(f"{i};{code}\n")
+            with open(inputFile, 'a') as lockerFile:
+                lockerFile.write(f"{i};{code}\n")
             return i
         else:
             i += 1
@@ -88,7 +88,7 @@ def kluis_openen():
         print(f"Kluis {lockerNumber} is nu open.")
         return True
     else:
-        print("Nummer of code is fout.m")
+        print("Nummer of code is fout.")
         return False
 
 
