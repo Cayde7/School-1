@@ -57,6 +57,17 @@ def inlezen_eindstation(stations, beginstation):
     Returns:
         string: Het gekozen eindstation.
     """
+
+    while True:
+        eindstation = input("Eindstation: ")
+        if eindstation in stations:
+            if stations.index(eindstation) > stations.index(beginstation):
+                return eindstation
+            else:
+                print(eindstation + " komt eerder dan het beginstation " + beginstation + "!")
+        else:
+            print(eindstation + " is geen bestaand eindstation.")
+
     return
 
 
