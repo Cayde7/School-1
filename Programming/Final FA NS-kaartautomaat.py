@@ -31,7 +31,12 @@ def inlezen_beginstation(stations):
     Returns:
         string: Het gekozen beginstation!
     """
-    return
+    while True:
+        beginstation = input("Beginstation: ")
+        if beginstation in stations:
+            return beginstation
+        else:
+            print(beginstation + " is geen bestaand station.")
 
 
 def inlezen_eindstation(stations, beginstation):
@@ -101,7 +106,7 @@ def development_code():
 
 
 def module_runner():
-    development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
