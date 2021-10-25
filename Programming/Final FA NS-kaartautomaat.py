@@ -102,7 +102,24 @@ def omroepen_reis(stations, beginstation, eindstation):
     Returns:
         string: Het omroepbericht met minimaal de beschreven 'snippets'.
     """
-    return
+
+
+    """
+    Het beginstation Eindhoven is het 11e station in het traject.
+    Het eindstation Roermond is het 13e station in het traject.
+    De afstand bedraagt 2 station(s).
+    De prijs van het kaartje is 10 euro.
+    """
+    # stations, beginstation, eindstation
+    """print(f"Het beginstation {beginstation} is het {stations.index(beginstation)+1}e station in het traject.\n"
+            f"Het eindstation {eindstation} is het {stations.index(eindstation)+1}e station in het traject.\n"
+            f"De afstand bedraagt {stations.index(eindstation)-stations.index(beginstation)} station(s).\n"
+            f"De prijs van het kaartje is {(stations.index(eindstation)-stations.index(beginstation))*5} euro.")"""
+    
+    return (f"Het beginstation {beginstation} is het {stations.index(beginstation)+1}e station in het traject.\n"
+            f"Het eindstation {eindstation} is het {stations.index(eindstation)+1}e station in het traject.\n"
+            f"De afstand bedraagt {stations.index(eindstation)-stations.index(beginstation)} station(s).\n"
+            f"De prijs van het kaartje is {(stations.index(eindstation)-stations.index(beginstation))*5} euro.")
 
 
 def development_code():
