@@ -3,124 +3,33 @@
 
 import traceback, collections, builtins
 
-"""
-Programming
-Final assignment 4: NS-kaartauatomaat
-(c) 2021 Hogeschool Utrecht,
-Tijmen Muller en 
-Bart van Eijkelenburg (bart.vaneijkelenburg@hu.nl)
-
-
-Opdracht:
-Werk onderstaande functies uit.
-Voeg commentaar toe om je code toe te lichten.
-Lever je werk in op Canvas als alle tests slagen.
-"""
-
-
 def inlezen_beginstation(stations):
-    """
-    De functie vraagt een reiziger om het beginstation van de reis in te voeren. Er wordt
-    gecontroleerd of de ingevoerde stationsnaam voorkomt in de meegegeven lijst met stations.
-
-    Het programma blijft vragen om invoer van de gebruiker, totdat een correcte stationsnaam
-    (correct == aanwezig in de lijst) is ingevoerd. Deze wordt geretourneerd.
-
-    Args:
-        stations (list): Lijst (van strings) met beschikbare stationsnamen
-    Returns:
-        string: Het gekozen beginstation!
-    """
     while True:
         beginstation = input("Beginstation: ")
-        if beginstation in stations:
+        if beginstation in stations:  # als het station bestaat/in de lijst staat
             return beginstation
         else:
             print(beginstation + " is geen bestaand station.")
 
-
 def inlezen_eindstation(stations, beginstation):
-    """
-    De functie vraagt een reiziger om het eindstation van de reis in te voeren. Er wordt
-    gecontroleerd of de ingevoerde stationsnaam voorkomt in de meegegeven lijst met stations.
-
-    Ook wordt gecontroleerd of het eindstation een hogere index in de lijst heeft dan het
-    beginstation (eindstation ligt verder op de route).
-
-    Het programma blijft vragen om invoer van de gebruiker, totdat een correcte stationsnaam
-    (correct == aanwezig in de lijst & verder op de route dan het beginstation) is ingevoerd.
-    Deze wordt geretourneerd.
-
-    Args:
-        stations (list): Lijst (van strings) met beschikbare stationsnamen
-        beginstation (string): De naam van het station waar de reis begint
-    Returns:
-        string: Het gekozen eindstation.
-    """
-
-    while True:
+    while True:  # Infinite loop, break bij return of INTERRUPT SIGNAL (CTRL+C)
         eindstation = input("Eindstation: ")
-        if eindstation in stations:
-            if stations.index(eindstation) > stations.index(beginstation):
+        if eindstation in stations:  # als het station bestaat/in de lijst staat
+            if stations.index(eindstation) > stations.index(beginstation):  # als het eindstation na het begin is
                 return eindstation
             else:
                 print(eindstation + " komt eerder dan het beginstation " + beginstation + "!")
         else:
             print(eindstation + " is geen bestaand eindstation.")
 
-    return
-
 
 def omroepen_reis(stations, beginstation, eindstation):
-    """
-    Deze functie maakt een string met reisinformatie, en geeft deze als returnwaarde terug!
-    Voorbeeld (uitvoer afhankelijk van de parameters):
-
-        Het beginstation Eindhoven is het 11e station in het traject.
-        Het eindstation Roermond is het 13e station in het traject.
-        De afstand bedraagt 2 station(s).
-        De prijs van het kaartje is 10 euro.
-
-        Jij stapt in de trein in: Eindhoven
-         - Weert
-        Jij stapt uit in: Roermond
-
-    Let op:
-     * Het rangnummer (bijv. 11e) is de index van het station (in de lijst met stationsnamen) + 1.
-     * Het kost 5 euro om te reizen van een station naar het volgende station.
-
-    In de returnwaarde moeten in dit voorbeeld in ieder geval de volgende 'snippets' voorkomen:
-        - '11e station'
-        - '13e station'
-        - '2 station'
-        - '10 euro'
-
-    Args:
-        stations (list): Lijst (van strings) met beschikbare stationsnamen
-        beginstation (string): De naam van het station waar de reis begint
-        eindstation (string): De naam van het station waar de reis eindigt
-    Returns:
-        string: Het omroepbericht met minimaal de beschreven 'snippets'.
-    """
-
-
-    """
-    Het beginstation Eindhoven is het 11e station in het traject.
-    Het eindstation Roermond is het 13e station in het traject.
-    De afstand bedraagt 2 station(s).
-    De prijs van het kaartje is 10 euro.
-    """
-    # stations, beginstation, eindstation
-    """print(f"Het beginstation {beginstation} is het {stations.index(beginstation)+1}e station in het traject.\n"
-            f"Het eindstation {eindstation} is het {stations.index(eindstation)+1}e station in het traject.\n"
-            f"De afstand bedraagt {stations.index(eindstation)-stations.index(beginstation)} station(s).\n"
-            f"De prijs van het kaartje is {(stations.index(eindstation)-stations.index(beginstation))*5} euro.")"""
-    
     return (f"Het beginstation {beginstation} is het {stations.index(beginstation)+1}e station in het traject.\n"
             f"Het eindstation {eindstation} is het {stations.index(eindstation)+1}e station in het traject.\n"
             f"De afstand bedraagt {stations.index(eindstation)-stations.index(beginstation)} station(s).\n"
             f"De prijs van het kaartje is {(stations.index(eindstation)-stations.index(beginstation))*5} euro.")
-
+    # de \n voelt overbodig maar dat is het niet
+    # deze opdracht was wel heel makkelijk?
 
 def development_code():
     # Gebruik (delen van) deze code om je functies te testen tijdens het programmeren:
@@ -134,7 +43,7 @@ def development_code():
 
 
 def module_runner():
-    # development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
