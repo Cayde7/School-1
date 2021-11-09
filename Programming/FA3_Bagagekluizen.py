@@ -105,10 +105,27 @@ def kluis_teruggeven():
     Returns:
         bool: True als er een kluiscombinatie verwijderd werd, anders False
     """
-
+    lockerNumber = input("Wat is uw kluisnummer? ")
+    lockerCode = input("Wat is uw kluiscode?" )
+    lockerFormated = f"{lockerNumber};{lockerCode}"
+    print(lockerFormated)
+    lockerFile = open(inputFile)
+    lockerText = lockerFile.readlines()
+    if lockerFormated in lockerText:
+        print(f"Kluis {lockerNumber} is nu open.")
+        lockerFile.close()
+        lockerFile = open(inputFile, 'w')
+        for line in lockerText.split('\n'):
+            if line != lockerFormated:
+                lockerFile.write(f"{line}\n")
+        lockerFile.close()
+        return True
+    else:
+        print("Nummer of code is fout.")
+        return False
     # Optional, I'll do when I have the time and energy.
-    input("\n\n\n   It said it's not implemented, go back!\n"
-          "   Press ENTER to continue...\n\n\n")
+    """input("\n\n\n   It said it's not implemented, go back!\n"
+          "   Press ENTER to continue...\n\n\n")"""
     return
 
 

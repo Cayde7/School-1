@@ -3,6 +3,7 @@
 
 import traceback, collections, builtins
 
+
 def inlezen_beginstation(stations):
     while True:
         beginstation = input("Beginstation: ")
@@ -10,6 +11,7 @@ def inlezen_beginstation(stations):
             return beginstation
         else:
             print(beginstation + " is geen bestaand station.")
+
 
 def inlezen_eindstation(stations, beginstation):
     while True:  # Infinite loop, break bij return of INTERRUPT SIGNAL (CTRL+C)
@@ -24,26 +26,32 @@ def inlezen_eindstation(stations, beginstation):
 
 
 def omroepen_reis(stations, beginstation, eindstation):
+    tussenstations= ""
+    for x in stations:
+        if stations.index(beginstation) < stations.index(x) < stations.index(eindstation):
+            tussenstations += f"- {x}\n"
     return (f"Het beginstation {beginstation} is het {stations.index(beginstation)+1}e station in het traject.\n"
+            f"{tussenstations}"
             f"Het eindstation {eindstation} is het {stations.index(eindstation)+1}e station in het traject.\n"
             f"De afstand bedraagt {stations.index(eindstation)-stations.index(beginstation)} station(s).\n"
             f"De prijs van het kaartje is {(stations.index(eindstation)-stations.index(beginstation))*5} euro.")
     # de \n voelt overbodig maar dat is het niet
     # deze opdracht was wel heel makkelijk?
 
+
 def development_code():
     # Gebruik (delen van) deze code om je functies te testen tijdens het programmeren:
     stations = ['Schagen', 'Heerhugowaard', 'Alkmaar', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk',
                 'Amsterdam Centraal', 'Amsterdam Amstel', 'Utrecht Centraal', "’s-Hertogenbosch", 'Eindhoven', 'Weert',
                 'Roermond', 'Sittard', 'Maastricht']
-
+    print(f"\n {stations} \n")
     beginstation = inlezen_beginstation(stations)
     eindstation = inlezen_eindstation(stations, beginstation)
     print(omroepen_reis(stations, beginstation, eindstation))
 
 
 def module_runner():
-    development_code()  # Comment deze regel om je 'development_code' uit te schakelen
+    #development_code()  # Comment deze regel om je 'development_code' uit te schakelen
     __run_tests()       # Comment deze regel om de HU-tests uit te schakelen
 
 
@@ -131,10 +139,10 @@ def test_inlezen_eindstation():
 def test_omroepen_reis():
     function = omroepen_reis
 
-    case = collections.namedtuple('case', 'start stop expected_start_rank, expected_stop_rank, expected_distance expected_price')
-    testcases = [ case("Schagen", "Maastricht", "1e station", "15e station", "14 station", "70 euro"),
-                  case("Alkmaar", "Weert", "3e station", "12e station", "9 station", "45 euro"),
-                  case("Heerhugowaard", "Sittard", "2e station", "14e station", "12 station", "60 euro") ]
+    case = collections.namedtuple('case', 'start stop expected_start_rank, expected_transition_rank, expected_stop_rank, expected_distance expected_price')
+    testcases = [ case("Schagen", "Maastricht", "1e station", "- Heerhugowaard\n- Alkmaar\n- Castricum\n- Zaandam\n- Amsterdam Sloterdijk\n- Amsterdam Centraal\n- Amsterdam Amstel\n- Utrecht Centraal\n- ’s-Hertogenbosch\n- Eindhoven\n- Weert\n- Roermond\n- Sittard", "15e station", "14 station", "70 euro"),
+                  case("Alkmaar", "Weert", "3e station", "- Castricum\n- Zaandam\n- Amsterdam Sloterdijk\n- Amsterdam Centraal\n- Amsterdam Amstel\n- Utrecht Centraal\n- ’s-Hertogenbosch\n- Eindhoven", "12e station", "9 station", "45 euro"),
+                  case("Heerhugowaard", "Sittard", "- Alkmaar\n- Castricum\n- Zaandam\n- Amsterdam Sloterdijk\n- Amsterdam Centraal\n- Amsterdam Amstel\n- Utrecht Centraal\n- ’s-Hertogenbosch\n- Eindhoven\n- Weert\n- Roermond\n", "2e station", "14e station", "12 station", "60 euro") ]
 
 
     for test in testcases:
@@ -143,6 +151,7 @@ def test_omroepen_reis():
 
         assertmsg = f"Fout: omroepen_reis({__stations()}, {{}}, {{}}) bevat niet de vereiste {{}}-tekst '{{}}'. Jouw returnwaarde: \n<<\n"+omroepbericht+"\n>>"
         assert test.expected_start_rank in omroepbericht, assertmsg.format(test.start, test.stop, 'rangnummer-beginstation', test.expected_start_rank)
+        assert test.expected_transition_rank in omroepbericht, assertmsg.format(test.start, test.stop, 'lijst met tussenstations:\n', test.expected_transition_rank)
         assert test.expected_stop_rank in omroepbericht, assertmsg.format(test.start, test.stop, 'rangnummer-eindstation', test.expected_stop_rank)
         assert test.expected_distance in omroepbericht, assertmsg.format(test.start, test.stop, 'afstand', test.expected_distance)
         assert test.expected_price in omroepbericht, assertmsg.format(test.start, test.stop, 'prijs', test.expected_price)

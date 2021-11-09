@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="69f402c2-f086-495a-9f11-f5dd324f3ff7" name="Changes" comment="" />
+    <list default="true" id="69f402c2-f086-495a-9f11-f5dd324f3ff7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/NS Twitter Applicatie/ModerateTweets.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NS Twitter Applicatie/TweetActions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NS Twitter Applicatie/UnmoderatedTweets - Copy.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/NS Twitter Applicatie/UnmoderatedTweets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/FA3_Bagagekluizen.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/FA3_Bagagekluizen.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Programming/Final FA NS-kaartautomaat.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Programming/Final FA NS-kaartautomaat.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PROJA - Template Ontwerp - 2020.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project 1.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/Project 1.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project 1.vpp.bak_000f" beforeDir="false" afterPath="$PROJECT_DIR$/Project 1.vpp.bak_000f" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Project 1.vpp.bak_001d" beforeDir="false" afterPath="$PROJECT_DIR$/Project 1.vpp.bak_001d" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,6 +41,7 @@
       <option name="presentableId" value="Default" />
       <updated>1634814358419</updated>
       <workItem from="1634814360213" duration="10000" />
+      <workItem from="1636360539343" duration="33000" />
     </task>
     <servers />
   </component>
