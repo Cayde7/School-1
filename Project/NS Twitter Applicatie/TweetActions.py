@@ -1,6 +1,6 @@
 import datetime as dt
 import psycopg2
-
+from TwitterAPI import TwitterAPI
 
 # Connect met de database
 con = psycopg2.connect(
@@ -11,6 +11,13 @@ con = psycopg2.connect(
     # port=5432 # Uncomment if you want to use a port other than the default
 )
 
+# Twitter API info
+consumer_key = 'FNzhdGrry5zu0JDSHMYg0BfmM'
+consumer_secret = 'Uq2gfL6sJhwcNhDypyRBTqx80SN1JWd8FoqhxM1GYNVx68IW5u'
+access_token_key = '1054486066965725184-Zb8H5vs0ZBmlzKcw6fE0TxvybpzYTA'
+access_token_secret = '1PoppmWrezTFVumWSxTMuMEg3JdXrlajUAfc6uj6Ib08U'
+api = TwitterAPI(consumer_key, consumer_secret, access_token_key, access_token_secret)
+
 # Create file "station.dat" if it doesn't excist
 def read_station():
     try:
@@ -20,7 +27,7 @@ def read_station():
         with open("station.dat", "w") as f:
             huidigstation = input("First time setup\n\nStation naam: ")
             cur = con.cursor()
-            cur.execute(("SELECT * FROM station WHERE stationnaam = '{}'").format(huidigstation))
+            cur.execute(("SELECT * FROM stations WHERE stationnaam = '{}'").format(huidigstation))
             if cur.fetchone() is None:
                 print("Station niet gevonden!")
                 station = open('station.dat', 'w')
@@ -31,6 +38,8 @@ def read_station():
                 f.write(huidigstation)
                 f.close()
                 return huidigstation
+
+
 
 def highest_tweet_ID():
     cur = con.cursor()
@@ -87,7 +96,7 @@ def login(username):
     #     return True
     # else:
     #     return False
-login(8)
+
 # Accept tweet
 def accept_tweet(tweetid, moderator):
     cur = con.cursor()
@@ -95,6 +104,11 @@ def accept_tweet(tweetid, moderator):
     cur.execute("UPDATE tweet SET moderatormoderatorid = %s WHERE tweetid = %s", (moderator, tweetid))
     cur.execute("UPDATE tweet SET moddatum = %s WHERE tweetid = %s", (dt.datetime.now(), tweetid))
     cur.execute("UPDATE tweet SET modtijd = %s WHERE tweetid = %s", (dt.datetime.now().strftime("%H:%M:%S"), tweetid))
+
+    # After updating the database, send the Tweet to Twitter
+    tweet = get_tweet(tweetid)
+    r = api.request('statuses/update', {'status': tweet[4]})
+    print(r.status_code)
     con.commit()
     cur.close()
 
@@ -108,92 +122,16 @@ def deny_tweet(tweetid, moderator, reason):
     cur.execute("UPDATE tweet SET modreden = %s WHERE tweetid = %s", (reason, tweetid))
     con.commit()
     cur.close()
-
-"""
-cur = con.cursor()
-cur.execute("select * from bericht")
-# Uitvoer query. Hier vullen we de database met gegevens
-# Door de constructie met (%s, %s, %s), (attribuut, attribuut, attribuut)) zetten we alleen maar strings erin
-# die we later toewijzen. Hierdoor kunnen we de database vullen zonder steeds de code aan te moeten passen.
-# Deze manier is ook veiliger dan gelijk values (attribuut, attribuut, attribuut)).
-cur.execute('insert into tabel (attribuut, attribuut, attribuut) values (%s, %s, %s)',
-                (attribuut, attribuut, attribuut))
-# Je wilt alles fetchen van de query die je hebt uitgevoerd
-rows = cur.fetchall()
-# Forloop die alles in elke row steeds alle colums af gaat. Per column die je hebt, moet je een {r[index]}
-# toevoegen om hem te printen
-for r in rows:
-    print(f"atribuut {r[0]} atribuut {r[1]}")
-# Sluit de cursor
-cur.close()
-# Sluit de database connectie
-con.close()
-"""
-
-"""
-def checktweetsfile(tweetsFile):
-    if not os.path.isfile(tweetsFile):
-        tweets = open(tweetsFile, "w")
-        tweets.close()
+    # Is there no faster way to do this? // No time to find out, crunch time
 
 
-def gettweets(tweetsFile):
-    tweets = open(tweetsFile, "r")
-    tweetsList = tweets.read().split("\n")
-    tweets.close()
-    return tweetsList
+# Get all recent tweets from database
+def get_sent_tweets(station):
+    print(f"Station: {station}")
+    cur = con.cursor()
+    cur.execute("SELECT * FROM tweet WHERE geaccepteerd IS True AND stationnaam = %s ORDER BY moddatum ASC, modtijd ASC LIMIT 10", (station,))
+    return_tweets = cur.fetchall()
+    cur.close()
+    print(f"Output: \n {return_tweets}")
+    return return_tweets
 
-def mostrecenttweet(tweetsFile):
-    tweets = open(tweetsFile, "r")
-    tweetsList = tweets.read().split("\n")
-    tweets.close()
-    return tweetsList[-1]
-
-
-def deletetweetcontainingword(tweetsFile, word):
-    tweets = open(tweetsFile, "r")
-    tweetsList = tweets.read().split("\n")
-    tweets.close()
-    tweets = open(tweetsFile, "w")
-    for tweet in tweetsList:
-        if word not in tweet:
-            tweets.write(tweet + "\n")
-    tweets.close()
-
-def deletetweet(tweetsFile, index):
-    tweets = open(tweetsFile, "r")
-    tweetsList = tweets.read().split("\n")
-    tweets.close()
-    tweets = open(tweetsFile, "w")
-    for tweet in tweetsList:
-        if index != tweetsList.index(tweet):
-            tweets.write(tweet + "\n")
-    tweets.close()
-
-def addtweet(tweetsFile, name, tweet):
-    if len(tweet) > 140:
-        print(f"Tweet is te lang! {len(tweet)}/140")
-        return 1
-    elif len(tweet) < 1:
-        print("Tweet is leeg!")
-        return 2
-    elif len(tweet) == 10:
-        print("Tweet is te kort!")
-        return 3
-    elif len(name) > 20:
-        print("Naam is te lang!")
-        return 4
-    elif len(name) < 1:
-        name = "Anoniem"
-    tweets = open(tweetsFile, "a")
-    datetime = str(dt.datetime.now())
-    tweets.write(name + ";" + tweet + ";" + datetime + "\n")
-    tweets.close()
-    return 0
-
-
-def showtweets(tweetsFile):
-    tweets = open(tweetsFile, "r")
-    print(tweets.read())
-    tweets.close()
-"""

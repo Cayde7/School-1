@@ -1,6 +1,16 @@
 import TweetActions as TA
 import tkinter as TK
 from PIL import ImageTk, Image
+import psycopg2
+
+# Connect met de database
+con = psycopg2.connect(
+    host='localhost',       # Host IP adres
+    database='NStweets',    # Database name
+    user='postgres',        # Database user, default is postgres
+    password='post'     # Password to access database
+    # port=5432 # Uncomment if you want to use a port other than the default
+)
 
 print(TA.get_unmoderated_tweet())
 
@@ -124,7 +134,7 @@ def moderation_screen():
     if tweet == None:
         # error message, no tweets to moderate
         error_message = TK.Label(Moderation,
-                                 text="No tweets to deny",
+                                 text="No tweets to moderate",
                                  font=("NS sans", 16),
                                  foreground='#333399', background='#FFC917')
         error_message.grid(row=0,
@@ -253,6 +263,7 @@ def deny_popup(tweetid): #tweet_id
                       columnspan=2,
                       sticky="nsew",
                       padx=16, pady=16)
+
     # display a textbox to enter the deny reason
     deny_reason = TK.Entry(DenyWindow,
                            font=("NS sans", 16),
@@ -263,6 +274,7 @@ def deny_popup(tweetid): #tweet_id
                      columnspan=2,
                      sticky="nsew",
                      padx=16, pady=16)
+
     # display a button to confirm the denial
     deny_button = TK.Button(DenyWindow,
                             text="Deny Tweet",
@@ -293,5 +305,6 @@ def destroy_layout():
 login_screen()
 
 MainWindow.configure(background='#FFC917')
+MainWindow.protocol("WM_DELETE_WINDOW", con.close())
 # Execute the window
 MainWindow.mainloop()
