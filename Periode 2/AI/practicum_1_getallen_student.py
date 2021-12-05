@@ -2,193 +2,187 @@
 # -*- coding: utf-8 -*-
 
 """
-Oriëntatie op AI
-
-Final assignment 1: getallen
-
-(c) 2019 Hogeschool Utrecht,
-Bart van Eijkelenburg en
-Tijmen Muller (tijmen.muller@hu.nl)
-
-
-Opdracht:
-Werk onderstaande functies uit.
-Voeg commentaar toe om je code toe te lichten.
-
-Je kunt je functies testen met het gegeven raamwerk door het bestand
-uit te voeren (of met behulp van `pytest`, als je weet hoe dat werkt).
-Lever je werk in op Canvas als alle tests slagen.
-
 Let op! Het is niet toegestaan om bestaande modules te importeren en te
         gebruiken, zoals `math` en `statistics`.
 """
+# How about modules like 'numba'? Could speed up the code by **10.
 
-# TODO: Vul hier je naam, klas en studentnummer in.
 naam = "Jasper van den Bremer"
 klas = "V1C"
 studentnummer = 1799441
 
+# I hate Math.
 
-# check is even; divide/2 and return remainder remainer 0 means even, 1 means odd so == 0 is true and 1 is false.
+# check is even; divide/2 and return remainder remainder 0 means even, 1 means odd so == 0 is true and 1 is false.
 def is_even(n):
     return n % 2 == 0
+
+
+# could be re-used but writing it out was a good exercise to actually understand everything.
 
 # int number, if not smaller or equal to real, the next full number should be real-1
 def floor(real):
     if int(real) <= real:
         return int(real)
     else:
-        return int(real)-1
+        return int(real) - 1
+
+
 # return int(n // 1) is also an option
-# // returns the next smallest full number, be sure to int it as thats the expected return type.
+# // returns the next smallest full number, be sure to int it as that's the expected return type.
+# int() and int()-1 wont work correctly.
 
 # int real, if not greater or equal to real, the next full number should be real +1
 def ceil(real):
     if int(real) >= real:
         return int(real)
     else:
-        return int(real)+1
+        return int(real) + 1
+
+
 # return int(-1 * n // 1 * -1) is also an option
 # returns the next smallest full number but before and after are inverted so you get the ceiling
-# int()-1 wouldn't work because ceil might already be a full number!
 
+# get the divisors of a number
 def div(n):
     divisors = []
-    for n in range(1, n):
-        if n % 2 > 0:
-            divisors.append(n)
-    """
-    Bepaal alle delers van een geheel getal.
-
-    Het positieve gehele getal a is een deler van n, als er een positief geheel getal b is, zodat a × b = n.
-
-    Args:
-        n (int): Een geheel getal.
-
-    Returns:
-        list: Een gesorteerde lijst met alle delers van `n`.
-    """
+    for i in range(1, n + 1):  # loop start to end
+        if int(n % i) == 0:  # if the remainder of n divided by i is 0
+            divisors.append(int(i))
     return sorted(divisors)
 
 
+# check if number is prime
 def is_prime(n):
-    return
-
-    """ 
-    if n > 1: # primes are greater than one
-        for n in range(2, n): # start has to be 2 and you end at n because greater numbers than n cant be the prime.
-            https: // www.programiz.com / python - programming / examples / prime - number
-    """
-    """
-    Bepaal of gegeven getal een priemgetal is.
-
-    Hint: maak gebruik van de functie `div()`.
-    Optioneel: bedenk een efficiënter alternatief.
-
-    Args:
-        n (int): Een geheel getal.
-
-    Returns:
-        bool: True als het getal een priemgetal is, anders False.
-    """
-    return
+    if div(n) == [1, n]:
+        return True
+    return False
 
 
+# calculate the primes below a number
 def primes(num):
-    """
-    Bepaal alle priemgetallen kleiner dan een bepaald geheel getal.
-
-    Hint: Maak gebruik van de functie `is_prime()`.
-
-    Args:
-        num (int): Een geheel getal.
-
-    Returns:
-        list: Een gesorteerde lijst met alle priemgetallen kleiner dan `num`.
-    """
     primelist = []
+    if num > 1:
+        for i in range(2, num):
+            if is_prime(i):
+                primelist.append(i)
+
     return sorted(primelist)
 
 
 def primefactors(n):
-    """
-    Bepaal de verzameling van priemfactoren van n.
+    """   https://youtu.be/XGbOiYhHY2c?t=263 saves headaches  """
 
-    Args:
-        n (int): Een geheel getal.
-
-    Returns:
-        list: Een gesorteerde lijst met alle priemfactoren van n. Als n kleiner
-            dan 2, retourneer dan een lege lijst `[]`.
-    """
     factors = []
+    i = 2
+
+    #  number is smaller than 2, return empty list
+    if n < 2:
+        return factors
+
+    #  2 is the only even prime so we can count by 1
+    #  all other primes are odd so we can count by 2 below
+    while i == 2:  # Can be multiple factors of 2, 64 for example. Will continue below if odd primes are reached.
+        if n % i == 0:  # check if the number (i) is a factor
+            factors.append(i)
+            n //= i
+        else:
+            i += 1  # count up by one, exits the loop and starts the next iteration which will be faster.
+
+    #  count up until we reach n where n is always divided by I per iteration because its the new number.
+    #  if n % i true then its not a factor so we can count up by 2 as all primes above 2 are odd.
+    while i <= n:  # will automatically stop if the last number is reached.
+        if n % i == 0:  # check if the number (i) is a factor
+            factors.append(i)
+            n //= i  # update n
+        else:
+            i += 2  # count by 2 as all primes above 2 are odd.
+
     return sorted(factors)
 
 
+# Get the greatest common divisor of two numbers
 def gcd(a, b):
+    """    https://en.wikipedia.org/wiki/Euclidean_algorithm#Implementations
+    Provides pseudo code for the Euclidean algorithm.
+    function gcd(a, b)
+    while b
+        t = b
+        b = a % b
+        a = t
+    return a
+
+    t is a temporary variable to store the value of b but this can be made in one line.
+    this makes
+    t = b and a = t
+    Can be equal to a = b if this is combined with b = a % b on the same line.
+    This is because a, b = b, a would swap the values of a and b while separate lines would require a temp value.
+
+    a, b = b, a % b
+
+    At the end, B will be false and the loop will stop.
+    Causing the return statement which should be a. According to the pseudo code and the Euclidean algorithm. IDK.
     """
-    Bepaal de grootste grootste gemene deler (ook wel 'greatest common divisor', gcd) van twee natuurlijke getallen.
 
-    Je hebt twee opties voor deze opgave:
-    1.  Je programmeert hier het algoritme van Euclides.
-        Zie: https://nl.wikipedia.org/wiki/Algoritme_van_Euclides
-    2.  Je bedenkt zelf een oplossing waarbij je gebruik maakt van de eerder
-        geschreven methode div(n) om de gcd te bepalen.
-
-    Args:
-        a (int): Een geheel getal.
-        b (int): Een geheel getal.
-
-    Returns:
-        int: De grootste grootste gemene deler.
-    """
-    return
+    while b:
+        a, b = b, a % b  # loads of text, small code.
+    return a
 
 
+# Get the least common multiple of two numbers
 def lcm(a, b):
-    """
-    Bepaal het kleinste gemene veelvoud, kgv (ook wel 'least common multiple', lcm) van twee natuurlijke getallen.
+    """    https://www.youtube.com/watch?v=fjdeo6anRY4
+    Example: a,b = 2,3
+    2,4,6*,8,10,12*,14,16,18*
+    3,6*,9,12*,15,18*,21,24
 
-    Args:
-        a (int): Een geheel getal.
-        b (int): Een geheel getal.
+    2/gcd = 2
+    3/gcd = 3
 
-    Returns:
-        int: Het kleinste gemene veelvoud.
+    We all know how to multiply fractions so...
+    2*3 = 6
+    gcd(2, 3) = 1
+    6 / 1 = 6
+    
+    So a * b / gcd(a, b) = 6
+    // for flooring, causing it to always be an int
+    
     """
-    return
+
+    return a * b // gcd(a, b)  # again text for little.
+
 
 
 def add_frac(n1, d1, n2, d2):
-    """Sommeer twee breuken als breuk. Vereenvoudig de breuk zover als mogelijk.
-
-    Args:
-        n1 (int): De teller van de eerste breuk.
-        d1 (int): De noemer van de eerste breuk.
-        n2 (int): De teller van de tweede breuk.
-        d2 (int): De noemer van de tweede breuk.
-
-    Returns:
-        tuple: De som *als breuk*, met eerst de teller en dan de noemer van het resultaat.
-
-    Examples:
-        Gegeven 1/3 + 1/5 = 8/15, dan
-
-        >> add_frac(1, 3, 1, 5)
-        (8, 15)
-
-        Gegeven 1/2 + 1/4 = 3/4, dan
-
-        >> add_frac(1, 2, 1, 4)
-        (3, 4)
-
-        Gegeven 2/3 + 3/2 = 13/6, dan
-
-        >> add_frac(2, 3, 3, 2)
-        (13, 6)
     """
-    return 1, 1
+        a c   a*d + b*c
+        -+- > ---------
+        b d   b*d
 
+        a*d + b*c
+        b*d
+
+        n1, d1, n2, d2
+        a , b , c , d
+
+        n1*d2 + d1*n2
+        d1*d2
+    """
+    #  one line, less variables
+    n1, d1 = n1*d2 + d1*n2, d1*d2
+
+    #  reduce the fraction with the gcd
+    g = gcd(n1, d1)
+    n1, d1 = n1//g, d1//g
+    return n1, d1
+
+
+def __main():
+    # devcode here // I added this to make it easier for me to debug
+
+
+    __runtest()
+    return
 
 """
 ==========================[ HU TESTRAAMWERK ]================================
@@ -417,7 +411,7 @@ def test_add_frac():
         __my_assert_args(add_frac, case[0], case[1])
 
 
-def __main():
+def __runtest():
     """ Test alle functies. """
     # Noodzakelijk voor gekleurde tekst binnen een Windows terminal
     import os
