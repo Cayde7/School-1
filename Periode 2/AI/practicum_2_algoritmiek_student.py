@@ -40,9 +40,17 @@ studentnummer = 1799441
         lijst aanneemt bij Alle tussenstappen bij toepassing van
         bovenstaand sorteeralgoritme.
 """
-        # TODO: [geef hier je antwoord]
+# start lst [4, 3, 1, 2]
+# 4,3 swap; [3, 4, 1, 2]
+# 3,4
+# 4,1 swap; [3, 1, 4, 2]
+# 3,1 swap; [1, 3, 4, 2]
+# 1,3
+# 3,4
+# 4,2 swap; [1, 3, 2, 4]
+# 1,3
+# 3,2 swap; [1, 2, 3, 4]
 """
-
     1b. Implementatie
         Implementeer het sorteeralgoritme in Python in een functie
         hieronder genaamd my_sort(lst).
@@ -54,15 +62,19 @@ studentnummer = 1799441
             Hoeveel vergelijkingen (zoals beschreven in stap 1. van de
             pseudocode) zijn nodig geweest?
 """
-            # TODO: [geef hier je antwoord]
+# 1b is lager te vinden
+# 1, 2, 3 moet 1,2 en 2,3 vergelijken. Dus best case len(lst)-1
 """
-
-
         -   Bij welke volgorde van de waarden in de lijst is het
             sorteeralgoritme het minst snel klaar (worst-case scenario)?
             Hoeveel vergelijkingen zijn nodig geweest?
 """
-            # TODO: [geef hier je antwoord]
+#            [3, 2, 1]
+# 3, 2 swap; [2, 3, 1]
+# 2, 3
+# 3, 1 swap; [2, 1, 3]
+# 2, 1 swap; [1, 2, 3]
+# 4 keer dus lijkt len(lst)+1
 """
 
 
@@ -72,7 +84,8 @@ studentnummer = 1799441
             En wat is nu het worst-case scenario?
             Hoeveel vergelijkingen zijn er nodig?
 """
-            # TODO: [geef hier je antwoord]
+# best case len(lst)-1 dus 3.
+# worst case 9 keer.
 """
 
 
@@ -84,29 +97,20 @@ studentnummer = 1799441
             En wat is nu het worst-case scenario?
             Hoeveel vergelijkingen zijn er nodig?
 """
-            # TODO: [geef hier je antwoord]
-"""
-"""
+# zoals aangegeven, len(lst)-1 dus n-1
+# en worste case, n^2?
 
 
 def my_sort(lst):
-    """
-    Sorteer gegeven lijst volgens het algoritme zoals beschreven in de pseudocode.
+    lst_sorted = lst.copy()  # Don't change the original variable
 
-    1. Startend vanaf het begin van een lijst, vergelijk elk element met zijn volgende buur.
-    2. Als het element groter is dan zijn volgende buur, verwissel ze van plaats.
-    3. Doorloop zo de lijst tot het eind.
-    4. Als er verwisselingen zijn geweest bij stap 2., ga naar stap 1.
+    for i in range(len(lst_sorted)):  # For each in the list, but range for an easy Index.
+        # Using a range around the other range will account for step 4, loop when swapped.
 
-    Zorg dat de gegeven lijst niet verandert, maar geef een nieuwe, gesorteerde variant van de lijst terug.
+        for x in range(0, len(lst_sorted) - i - 1):  # For each in the list, skip the last as it's already done by then.
+            if lst_sorted[x] > lst_sorted[x + 1]:  # If element is bigger than the next neighbor.
+                lst_sorted[x], lst_sorted[x + 1] = lst_sorted[x + 1], lst_sorted[x]  # Swap the two numbers.
 
-    Args:
-        lst (list): Een lijst met elementen van gelijk type, bijvoorbeeld gehele getallen.
-
-    Returns:
-        list: Een nieuwe, gesorteerde variant van lijst `lst`.
-    """
-    lst_sorted = None
     return lst_sorted
 
 
@@ -200,7 +204,7 @@ def __main():
     os.system("")
 
     try:
-        print("\x1b[32m")   # Groene tekstkleur
+        print("\x1b[32m")  # Groene tekstkleur
         test_id()
 
         test_my_sort()
@@ -216,10 +220,10 @@ def __main():
         print("Lever je werk nu in op Canvas...")
 
     except AssertionError as ae:
-        print("\x1b[31m")   # Rode tekstkleur
+        print("\x1b[31m")  # Rode tekstkleur
         print(ae)
 
-    print("\x1b[0m")    # Reset tekstkleur
+    print("\x1b[0m")  # Reset tekstkleur
 
 
 if __name__ == '__main__':
