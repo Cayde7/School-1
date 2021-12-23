@@ -127,6 +127,10 @@ def linear_search_recursive(lst, target):
     Returns:
         bool: Of het element in de lijst voorkomt.
     """
+    for i in range(0, len(lst)):
+        # print(f"{lst[i]} : {target}")
+        if lst[i] == target:
+            return True
     return False
 
 
@@ -144,7 +148,20 @@ def binary_search_recursive(lst, target):
     Returns:
         bool: Of het element in de lijst voorkomt.
     """
-    return False
+
+
+    min = 0  # minimum index is 0
+    max = len(lst)-1 # maximum index is length of list -1 because 0 is spot 1
+    med = 0  # median
+    while min <= max:
+        med = (min + max) // 2  # get the middle of min + max
+        if lst[med] < target:  # if the med is smaller than the target, target must be higher
+            min = med+1  # update the minimum number as the target is higher
+        elif lst[med] > target:  # if the med is larger than the target, target must be lower
+            max = med-1  # update the maximum number as the target is lower
+        else:
+            return True  # med is not smaler or larger, so it must be the target, TRUE
+    return False  # Target not found in the list
 
 
 """

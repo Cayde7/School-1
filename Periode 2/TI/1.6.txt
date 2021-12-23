@@ -1,0 +1,15 @@
+--- 1.6 - 21:59.82
+- Omrekenen
+1111 = 2^4 = 16 waarbij 0 = 1 (dus 15)
+10 1010 = 2^6 + 2^4 + 2^1 = 42
+111 1110 0101 = 2^10 + 2^9 + 2^8 + 2^7 + 2^6 + 2^5 + 2^2 + 2^0 = 2,021
+
+# zo iets toch?
+number = 0
+for bit in byte:
+    if bit = 1:
+        number+=2^bit
+# tijd om te stoppen met coderen denk ik.. notepad is hier niet voor.
+
+--
+Code apart geleverd

@@ -1,0 +1,4 @@
+--- 1.4 - 37:25.38
+Code apart geleverd
+
+Duurde langer omdat ik /100 ipv /1000 voor ms pulse
