@@ -1,11 +1,13 @@
 --- 1.2 - 24:44.53
 hij brand.
-3.3V/1000Ω= 0.0033A
-1.8V/1000Ω= 0.0018A
+1.5V/1000Ω= 0.0015A WEERSTAND
+1.8V/1000Ω= 0.0018A LED
 Andersom gebeurt er niets want hij kan maar 1 kant op.
 -
 Hij brand feller.
-5V/1000Ω= 0.005A
+3.2V/1000Ω= 0.0032A WEERSTAND
+1.8V/1000Ω= 0.0018A LED
 -
 Lekker fel, flashbang warning had gemogen.
-5v/100= 0.05A
+1.5V/1000Ω= 0.0150A WEERSTAND
+1.8V/1000Ω= 0.0180A LED
