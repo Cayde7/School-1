@@ -127,11 +127,22 @@ def linear_search_recursive(lst, target):
     Returns:
         bool: Of het element in de lijst voorkomt.
     """
+
+    """
+    # non recursive version
     for i in range(0, len(lst)):
         # print(f"{lst[i]} : {target}")
         if lst[i] == target:
             return True
-    return False
+    """
+
+    # recursive version
+    if len(lst) == 0:  # if the end of the list is reached, none of the numbers was the target
+        return False
+    if lst[0] == target:  # if the first number is the target, return true
+        return True
+    else:  # if the first number is not the target, remove the first number and search again
+        return linear_search_recursive(lst[1:], target)  # lst[1:] ignores [0] and searches the rest of the list
 
 
 def binary_search_recursive(lst, target):
