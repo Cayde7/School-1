@@ -53,7 +53,8 @@ def rnge(lst):
     Returns:
         int: Het bereik van de gegeven getallen.
     """
-    return
+
+    return max(lst) - min(lst)
 
 
 def median(lst):
@@ -66,7 +67,15 @@ def median(lst):
     Returns:
         float: De mediaan van de gegeven getallen.
     """
-    return
+
+    lst.sort()  # This line is all I needed to do to make it work and it took me hours.
+
+    length = len(lst)
+    if length % 2 == 0:
+        return float((lst[length//2] + lst[length//2 - 1]) / 2)
+    else:
+        return float(lst[length//2])
+
 
 
 def q1(lst):
@@ -81,7 +90,12 @@ def q1(lst):
     Returns:
         float: Het eerste kwartiel Q1 van de gegeven getallen.
     """
-    return
+    # get the median index
+    median_index = len(lst) // 2
+    # sort the list
+    lst.sort()
+    # return the median
+    return median(lst[:median_index])
 
 
 def q3(lst):
@@ -94,7 +108,15 @@ def q3(lst):
     Returns:
         float: Het derde kwartiel Q3 van de gegeven getallen.
     """
-    return
+    # get the median index
+    median_index = len(lst) // 2
+    # sort the list
+    lst.sort()
+    # return the median
+    if len(lst) % 2 == 0:  # if the list is even
+        return median(lst[median_index:])  # return the median
+    else:  # if the list is odd
+        return median(lst[median_index + 1:])  # return the median correcting for the oddity // 2 (floor division)
 
 
 def var(lst):
@@ -107,7 +129,25 @@ def var(lst):
     Returns:
         float: De variantie van de gegeven getallen.
     """
-    return
+
+    # https://www.calculatorsoup.com/calculators/statistics/variance-calculator.php (Set to Population)
+    # x = value
+    # Find the mean of each x
+    # Find the difference between each value and the mean
+    # Square the difference
+    # Sum the squared differences
+    # Divide by the number of values
+
+    # mean = sum(lst) / len(lst)
+    # diff = [x - mean for x in lst]
+    # squared_diff = [x ** 2 for x in diff]
+    # squared_diff_sum = sum(squared_diff)
+    # return squared_diff_sum / len(lst)
+
+    # now in a single line:
+    # sum([(x - mean(lst))**2 for x in lst]) / len(lst)
+
+    return float(sum([(x - mean(lst))**2 for x in lst]) / len(lst))  # return as a float
 
 
 def std(lst):
@@ -120,7 +160,9 @@ def std(lst):
     Returns:
         float: De standaardafwijking van de gegeven getallen.
     """
-    return
+    # https://www.calculatorsoup.com/calculators/statistics/standard-deviation-calculator.php
+    # Take the square root of the population variance to get the standard deviation.
+    return float(var(lst) ** 0.5)  # ** is the power operator, so .5 is the square root
 
 
 def freq(lst):
@@ -142,6 +184,13 @@ def freq(lst):
         {1: 3, 2: 2, 3: 1}
     """
     freqs = dict()
+    for x in lst:  # for each number in the list
+        # https://www.w3schools.com/python/ref_dictionary_get.asp
+        # count frequency of number x up
+        # freqx[x] += 1 > doesn't work because x might be a new value and you can't reference a value that doesn't exist
+        # .get will return 0 if the key doesn't exist, so it handles the case of a new value
+
+        freqs[x] = freqs.get(x, 0) + 1  # add number to the dictionary with a default value of 0 + 1
     return freqs
 
 
@@ -164,7 +213,15 @@ def modes(lst):
         >> modes([1, 1, 2, 3, 2, 1])
         [1]
     """
+    # It's a list of numbers that appear the most times
+    # This is a list as multiple numbers can share the max frequency
     modi = []
+    freqs = freq(lst)
+    # .values() returns a list of the values in the dictionary max will get the highest value in the list
+    maxfreq = max(freqs.values())  # get the max frequency
+    for x in freqs:  # for each number in the list
+        if freqs[x] == maxfreq:  # if the frequency is the highest
+            modi.append(x)  # add the number to the list of modi
     return sorted(modi)
 
 
