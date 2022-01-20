@@ -72,10 +72,9 @@ def median(lst):
 
     length = len(lst)
     if length % 2 == 0:
-        return float((lst[length//2] + lst[length//2 - 1]) / 2)
+        return float((lst[length // 2] + lst[length // 2 - 1]) / 2)
     else:
-        return float(lst[length//2])
-
+        return float(lst[length // 2])
 
 
 def q1(lst):
@@ -147,7 +146,7 @@ def var(lst):
     # now in a single line:
     # sum([(x - mean(lst))**2 for x in lst]) / len(lst)
 
-    return float(sum([(x - mean(lst))**2 for x in lst]) / len(lst))  # return as a float
+    return float(sum([(x - mean(lst)) ** 2 for x in lst]) / len(lst))  # return as a float
 
 
 def std(lst):
@@ -414,7 +413,7 @@ def __main():
     os.system("")
 
     try:
-        print("\x1b[32m")   # Groene tekstkleur
+        print("\x1b[32m")  # Groene tekstkleur
         test_id()
 
         test_mean()
@@ -481,10 +480,10 @@ def __main():
         print("\nHistogram (gekanteld):\n\n" + hist(freq(userlst)))
 
     except AssertionError as ae:
-        print("\x1b[31m")   # Rode tekstkleur
+        print("\x1b[31m")  # Rode tekstkleur
         print(ae)
 
-    print("\x1b[0m")    # Reset tekstkleur
+    print("\x1b[0m")  # Reset tekstkleur
 
 
 if __name__ == '__main__':
