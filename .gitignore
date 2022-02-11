@@ -37,3 +37,13 @@ Periode 1/Project/NS Twitter Applicatie/__pycache__/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+*.bak_000f
+
+*.bak_003d
+
+*.bak_002d
+
+*.bak_001d
+
+*.lck
