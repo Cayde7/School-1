@@ -1,0 +1,13 @@
+Bouwmarkt = winkel
+Bouwmarkt !Plaatsnaam
+Globaal Assortiment
+Lokaal Assortiment
+Product !Nummer > omschijving > prijs
+
+
+Praxa > Globaal Assortiment > Centrale Magazijn > Winkel > Lokale voorraad > Magazijn
+
+Verkoop/Retour > Verlaag/Verhoog vooraad > Als onder norm voorraad > Bestelling door Magazijnhoofd met aantallen > 1 bestelling per dag bij het Hoofdkantoor >>
+>> Financieel verwerkt door orderbehandelaar > Leveropdracht centraal magazijn > Centraal magazijnmedewerker maakt order klaar > Alleen producten die op vooraad zijn > Leveringsbon met producten >>
+>> Chauffeur > Winkel > Magazijnhoofd controleert met leveringsbon + OG bestelling > Junior medewerker ruimt producten op > winkel vooraad/magazijn.
+

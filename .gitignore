@@ -47,3 +47,5 @@ replay_pid*
 *.bak_001d
 
 *.lck
+
+*.bak_004d
