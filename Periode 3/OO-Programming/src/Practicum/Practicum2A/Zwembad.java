@@ -1,6 +1,21 @@
 package Practicum.Practicum2A;
 
-// TODO: maak uml!
+// DONE: maak uml!
+// |---------------------------|
+// | Zwembad                   |
+// |---------------------------|
+// | lengte : double           |
+// | breedte : double          |
+// | diepte : double           |
+// |---------------------------|
+// | getLength() : double      |
+// | getBreedte() : double     |
+// | getDiepte() : double      |
+// | inhoud() : double         |
+// | setLength(double)         |
+// | setBreedte(double)        |
+// | setDiepte(double)         |
+// |---------------------------|
 
 // Zwembad z1 = new Zwembad(2.0, 5.5, 1.5); constructor met parameters nodig
 // Zwembad z2 = new Zwembad( ); constructor zonder parameters met default waardes nodig
