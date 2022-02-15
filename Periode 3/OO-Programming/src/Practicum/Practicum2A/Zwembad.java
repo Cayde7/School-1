@@ -1,11 +1,13 @@
 package Practicum.Practicum2A;
 
+// TODO: maak uml!
+
 // Zwembad z1 = new Zwembad(2.0, 5.5, 1.5); constructor met parameters nodig
 // Zwembad z2 = new Zwembad( ); constructor zonder parameters met default waardes nodig
 public class Zwembad {
-    private double breedte = 0.0;
-    private double lengte = 0.0;
-    private double diepte = 0.0;
+    private double breedte;
+    private double lengte;
+    private double diepte;
 
     /**
      * @param breedte zet de breedte van het zwembad
@@ -22,9 +24,7 @@ public class Zwembad {
      * deze methode maakt een nieuw zwembad aan met default waarden 0.0
      */
     public Zwembad() {
-        breedte = 0.0;
-        lengte = 0.0;
-        diepte = 0.0;
+
     }
 
     /**

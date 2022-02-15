@@ -1,5 +1,13 @@
 package Practicum.Practicum2B;
 
+// TODO: maak uml!
+
+
+// -------------
+// |
+// |
+// |
+
 public class Voetbalclub {
     private String naam;
     private int aantalGewonnen;
