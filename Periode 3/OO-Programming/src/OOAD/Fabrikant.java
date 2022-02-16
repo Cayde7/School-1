@@ -1,2 +1,5 @@
-package OOAD;public class Fabrikant {
+package OOAD;
+
+public class Fabrikant {
+
 }

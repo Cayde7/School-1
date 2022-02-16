@@ -1,2 +1,4 @@
-package OOAD;public class Main {
+package OOAD;
+
+public class Main {
 }
