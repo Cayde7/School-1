@@ -1,7 +1,19 @@
 package Practicum.Practicum2B;
 
-// TODO: maak uml!
-
+// DONE: maak uml!
+// ┌──────────────────────────────────┐
+// │ Voetbalclub                      │
+// ├----------------------------------┤
+// │ naam : String                    │
+// │ aantalGewonnen : int             │
+// │ aantalGelijk : int               │
+// │ aantalVerloren : int             │
+// ├----------------------------------┤
+// │ verwerkResultaat(ch:char) : void │
+// │ aantalPunten() : int             │
+// │ aantalGespeeld() : int           │
+// │ toString() : String              │
+// └──────────────────────────────────┘
 
 public class Voetbalclub {
     private String naam;
@@ -52,18 +64,4 @@ public class Voetbalclub {
         return naam + " " + aantalGespeeld() + " " + aantalGewonnen + " " + aantalGelijk + " " + aantalVerloren + " " + aantalPunten();
     }
 }
-
-// |---------------------------|
-// | Voetbalclub               |
-// |---------------------------|
-// | naam : String             |
-// | aantalGewonnen : int      |
-// | aantalGelijk : int        |
-// | aantalVerloren : int      |
-// |---------------------------|
-// | verwerkResultaat(ch:char) |
-// | aantalPunten() : int      |
-// | aantalGespeeld() : int    |
-// | toString() : String       |
-// |---------------------------|
 
