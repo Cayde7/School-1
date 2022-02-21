@@ -59,4 +59,13 @@ class VoetbalclubTest {
         assertEquals("FC Groningen 6 2 2 2 8", vcg.toString());
 
     }
+
+    @Test
+    public void testCheckPunten(){
+        Voetbalclub fct = new Voetbalclub("FC Twente");
+        fct.verwerkResultaat('g');
+        fct.verwerkResultaat('g');
+        fct.verwerkResultaat('w');
+        assertEquals(5, fct.aantalPunten());
+    }
 }
